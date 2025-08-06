@@ -15,7 +15,8 @@ const Layout = () => {
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
       />
-      <div className="flex-1 bg-slate-50">
+      <div className="flex-1 bg-slate-50 pl-6">
+        {/*pl-6 ben ekledim*/}
         <Outlet />
       </div>
       {sidebarOpen ? (
