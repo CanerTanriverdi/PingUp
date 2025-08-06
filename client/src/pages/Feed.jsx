@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 import Loading from "../components/Loading";
 import { assets, dummyPostsData } from "../assets/assets";
 import StoriesBar from "../components/StoriesBar";
 import PostCard from "../components/PostCard";
+import RecentMessages from "../components/RecentMessages";
 
 const Feed = () => {
   const [feeds, setFeeds] = useState([]);
@@ -45,7 +46,7 @@ const Feed = () => {
             Supercharge your marketing with a powerful, easy-to-use platform built for results.
           </p>
         </div>
-        <h1>Recent messages</h1>
+        <RecentMessages />
       </div>
     </div>
   ) : (
