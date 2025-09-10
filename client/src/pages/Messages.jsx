@@ -1,8 +1,27 @@
 import { dummyConnectionsData } from "../assets/assets";
 import { Eye, MessagesSquare } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@clerk/clerk-react";
+import { fetchConnections } from "../features/connections/connectionsSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 const Messages = () => {
+  // fix profile picture by me
+  const getAvatar = (url) => {
+    if (url && url.trim() !== "") return url;
+    return "https://ssl.gstatic.com/accounts/ui/avatar_2x.png"; // Google default avatar
+  };
+
+  const { getToken } = useAuth();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    getToken().then((token) => {
+      dispatch(fetchConnections(token));
+    });
+  }, []);
+
+  const { connections } = useSelector((state) => state.connections);
   const navigate = useNavigate();
 
   return (
@@ -16,15 +35,20 @@ const Messages = () => {
 
         {/* Connected Users */}
         <div className="flex flex-col gap-3">
-          {dummyConnectionsData.map((user) => (
+          {connections.map((user) => (
             <div
               key={user._id}
               className="max-w-xl flex flex-warp gap-5 p-6 bg-white shadow rounded-md"
             >
-              <img
+              {/* <img
                 src={user.profile_picture}
                 alt=""
                 className="rounded-full size-12 mx-auto"
+              /> */}
+              <img
+                src={getAvatar(user.profile_picture)}
+                alt=""
+                className="rounded-full w-12 h-12 shadow-md mx-auto"
               />
               <div className="flex-1">
                 <p className="font-medium text-slate-700">{user.full_name}</p>

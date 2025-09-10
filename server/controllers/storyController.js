@@ -9,6 +9,8 @@ export const addUserStory = async (req, res) => {
   try {
     const { userId } = req.auth();
     const { content, media_type, background_color } = req.body;
+    console.log("const bg: ", background_color);
+
     const media = req.file;
     let media_url = "";
 
